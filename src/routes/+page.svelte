@@ -5,22 +5,12 @@
 		done: boolean;
 	};
 
-	let todos = $state<Todo[]>([]);
+	const existingTodos = JSON.parse(localStorage.getItem('todos') ?? '');
+
+	let todos = $state<Todo[]>(existingTodos ? existingTodos : getInitialTodos());
 	let newTodoInput = $state('');
-	let isMounted = false;
 
 	$inspect(todos);
-
-	$effect(() => {
-		if (!isMounted) {
-			const existingTodos = JSON.parse(localStorage.getItem('todos') ?? '');
-			if (existingTodos) {
-				todos = existingTodos;
-			} else {
-				todos = getInitialTodos();
-			}
-		}
-	});
 
 	$effect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
