@@ -9,7 +9,6 @@
 
 	let todos = $state<Todo[]>([]);
 	let newTodoInput = $state('');
-	let isMounted = $state(false);
 
 	$inspect(todos);
 
