@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	type Todo = {
 		id: string;
 		name: string;
@@ -11,16 +13,12 @@
 
 	$inspect(todos);
 
-	$effect(() => {
-		if (!isMounted) {
-			const existingTodos = JSON.parse(localStorage.getItem('todos') ?? '');
-			if (existingTodos) {
-				todos = existingTodos as Todo[];
-			} else {
-				todos = getInitialTodos();
-			}
-
-			isMounted = true;
+	onMount(() => {
+		const existingTodos = JSON.parse(localStorage.getItem('todos') ?? '');
+		if (existingTodos) {
+			todos = existingTodos as Todo[];
+		} else {
+			todos = getInitialTodos();
 		}
 	});
 
