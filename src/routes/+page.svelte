@@ -29,7 +29,7 @@
 	});
 
 	function newId() {
-		return window.crypto.randomUUID();
+		return crypto.randomUUID();
 	}
 
 	function addTodo(e: KeyboardEvent) {
@@ -40,15 +40,6 @@
 
 	function removeTodo(todoId: string) {
 		todos = todos.filter((t) => t.id !== todoId);
-	}
-
-	function toggleDone(todoId: string) {
-		todos = todos.map((t) => {
-			if (t.id === todoId) {
-				t.done = !t.done;
-			}
-			return t;
-		});
 	}
 
 	function getInitialTodos() {
@@ -67,12 +58,14 @@
 	</div>
 
 	<ol>
-		{#each todos as { id, name, done }}
+		{#each todos as todo}
 			<li class="todo-row">
-				<span aria-hidden="true" onclick={() => toggleDone(id)} class={done ? 'done' : ''}
-					>{name}</span
+				<span
+					aria-hidden="true"
+					onclick={() => (todo.done = !todo.done)}
+					class={todo.done ? 'done' : ''}>{todo.name}</span
 				>
-				<button onclick={() => removeTodo(id)}>X</button>
+				<button onclick={() => removeTodo(todo.id)}>X</button>
 			</li>
 		{/each}
 	</ol>
