@@ -13,7 +13,7 @@
 	$inspect(todos);
 
 	onMount(() => {
-		const existingTodos = JSON.parse(localStorage.getItem('todos') ?? '');
+		const existingTodos = JSON.parse(localStorage.getItem('todos') ?? 'null');
 		if (existingTodos) {
 			todos = existingTodos as Todo[];
 		} else {
